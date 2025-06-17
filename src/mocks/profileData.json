@@ -1,0 +1,46 @@
+{
+  "profile": {
+    "id": "dev-profile-123",
+    "full_name": "Developer User",
+    "email": "dev@example.com",
+    "organization": {
+      "name": "Dev Corp",
+      "vat_id": "GB123456789"
+    },
+    "billing_address": {
+      "line1": "123 Dev Street",
+      "city": "London",
+      "postal_code": "W1D 3LL",
+      "country": "UK"
+    },
+    "payment_methods": [
+      {
+        "id": "card-001",
+        "card_last4": "4242",
+        "card_brand": "visa",
+        "card_exp_month": "12",
+        "card_exp_year": "2026",
+        "is_default": true
+      }
+    ],
+    "subscriptions": [
+      {
+        "id": "sub-001",
+        "plan_id": "pro-monthly",
+        "status": "active",
+        "current_period_end": "2024-12-31T00:00:00Z"
+      }
+    ],
+    "invoices": [
+      {
+        "id": "inv-001",
+        "amount": 3000,
+        "currency": "usd",
+        "status": "paid",
+        "pdf_url": "/mocks/invoice.pdf",
+        "period_start": "2024-01-01T00:00:00Z",
+        "period_end": "2024-01-31T00:00:00Z"
+      }
+    ]
+  }
+}
