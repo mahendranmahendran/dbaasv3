@@ -63,7 +63,7 @@ export const Pricing = () => {
 
       <Grid container spacing={4} alignItems="flex-end">
         {tiers.map((tier) => (
-          <Grid item xs={12} md={4} key={tier.name}>
+          <Grid xs={12} md={4} key={tier.name}>
             <Paper
               elevation={tier.highlight ? 6 : 3}
               sx={{

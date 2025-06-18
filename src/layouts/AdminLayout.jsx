@@ -1,25 +1,59 @@
-import { Layout, Menu, useTheme } from 'react-admin';
-import { AppBar, Toolbar, Typography, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
-import LogoLight from '../assets/logos/logo-light.svg';
+// src/layouts/AdminLayout.jsx
+import { Layout, Menu } from 'react-admin';
+import { AppBar, Toolbar, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import {
+  Dashboard as DashboardIcon,
+  QueryStats as QueryStatsIcon,
+  Code as CodeIcon,
+  Person as PersonIcon,
+  Settings as SettingsIcon
+} from '@mui/icons-material';
+
+const CustomAppBar = ({ onMenuClick, dense }) => {
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    navigate('/login');
+  };
+
+  return (
+    <AppBar position="fixed">
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <span>DBaaS Admin</span>
+        <Button color="inherit" onClick={handleLogout}>
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 const AdminMenu = () => {
-  const theme = useTheme();
   return (
-    <Menu sx={{
-      '& .RaMenu-item': {
-        borderRadius: '4px',
-        margin: '4px 8px',
-        '&:hover': {
-          backgroundColor: theme.palette.action.hover
-        }
-      }
-    }}>
+    <Menu>
       <Menu.DashboardItem />
-      <Menu.Item to="/admin/queries" primaryText="Queries" leftIcon={<span>📊</span>} />
-      <Menu.Item to="/admin/profile" primaryText="Profile" leftIcon={<span>👤</span>} />
-      <Menu.Item to="/admin/settings" primaryText="Settings" leftIcon={<span>⚙️</span>} />
-      <Menu.Item to="/admin/sql" primaryText="SQL Playground" leftIcon={<span>💻</span>} />
+      <Menu.Item
+        to="/queries"  // Use relative paths with leading slash
+        primaryText="Queries"
+        leftIcon={<QueryStatsIcon />}
+      />
+      <Menu.Item
+        to="/profile"
+        primaryText="Profile"
+        leftIcon={<PersonIcon />}
+      />
+      <Menu.Item
+        to="/settings"
+        primaryText="Settings"
+        leftIcon={<SettingsIcon />}
+      />
+      <Menu.Item
+        to="/sql"
+        primaryText="SQL Playground"
+        leftIcon={<CodeIcon />}
+      />
     </Menu>
   );
 };
@@ -27,30 +61,7 @@ const AdminMenu = () => {
 export const AdminLayout = (props) => (
   <Layout
     {...props}
-    menu={AdminMenu}
-    sx={{
-      '& .RaLayout-appFrame': {
-        marginTop: '64px'
-      }
-    }}
-  >
-    <AppBar position="fixed" sx={{ 
-      background: 'linear-gradient(to right, #2563EB, #1E40AF)',
-      zIndex: (theme) => theme.zIndex.drawer + 1
-    }}>
-      <Toolbar>
-        <Box component={Link} to="/admin" sx={{ display: 'flex', alignItems: 'center' }}>
-          <img 
-            src={LogoLight} 
-            alt="Admin Logo" 
-            height="30"
-            style={{ marginRight: '16px' }}
-          />
-          <Typography variant="h6" noWrap sx={{ color: 'white' }}>
-            DBaaS Admin
-          </Typography>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  </Layout>
+    appBar={<CustomAppBar />}
+    menu={<AdminMenu />}
+  />
 );

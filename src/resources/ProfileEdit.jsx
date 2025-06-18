@@ -55,6 +55,7 @@ const BillingSection = () => {
 };
 
 export const ProfileEdit = (props) => {
+  console.log("ProfileEdit is rendering");
   const notify = useNotify();
   const redirect = useRedirect();
   const { identity } = useGetIdentity();
